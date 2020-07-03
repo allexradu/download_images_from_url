@@ -28,7 +28,8 @@ def download_images(img_file_names):
                         split_url = url.split('/')
                         img_file_name_raw = split_url[-1]
                         split_file_name = img_file_name_raw.split('.')
-                        img_suffix = split_file_name[-1]
+                        img_suffix_raw = split_file_name[-1]
+                        img_suffix = img_suffix_raw[:3]
                         img_file_name = excel.sanitise_product_names(excel.excel_product_names[i]) + '.' + img_suffix
 
                         img_file_names.append(img_file_name)
