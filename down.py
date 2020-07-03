@@ -8,9 +8,9 @@ from urllib.request import Request, urlopen
 import requests
 import shutil
 
-read_urls_excel_cell_letter = 'T'
-read_product_name_cell_letter = 'A'
-image_names_cell_letter = "U"
+read_urls_excel_cell_letter = 'L'
+read_product_name_cell_letter = 'D'
+image_names_cell_letter = "M"
 
 image_file_names = []
 
@@ -35,7 +35,7 @@ def download_images(img_file_names):
 
                         system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else 'excel/photos/'
 
-                        response = requests.get(excel.excel_product_image_url[i], stream = True)
+                        response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
                         with open(system_prefix + img_file_name, 'wb') as out_file:
                             shutil.copyfileobj(response.raw, out_file)
                             print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
