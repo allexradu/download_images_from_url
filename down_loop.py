@@ -40,8 +40,12 @@ def download_images(img_file_names, image_multiplier):
                         system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else 'excel/photos/'
 
                         response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
-                        file_name = system_prefix + img_file_name if platform.system() == 'Windows' \
-                            else system_prefix + img_file_name.replace(' ', r'\ ')
+                        if img_file_name.find(' ') != -1:
+                            file_name = system_prefix + img_file_name if platform.system() == 'Windows' \
+                                else system_prefix + img_file_name.replace(' ', r'\ ')
+                        else:
+                            file_name = system_prefix + img_file_name
+                            
                         with open(file_name, 'wb') as out_file:
                             shutil.copyfileobj(response.raw, out_file)
                             print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
