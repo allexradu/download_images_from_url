@@ -42,7 +42,7 @@ def download_images(img_file_names, image_multiplier):
 
                         response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
 
-                        cwd = os.getcwd()
+                        cwd = os.path.abspath(os.curdir)
 
                         if img_file_name.find(' ') != -1:
                             file_name = system_prefix + img_file_name if platform.system() == 'Windows' \
