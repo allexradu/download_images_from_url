@@ -50,7 +50,7 @@ def download_images(img_file_names, image_multiplier):
                         else:
                             file_name = system_prefix + img_file_name
 
-                        with open(file_name, 'w') as out_file:
+                        with open(file_name, 'wb') as out_file:
                             shutil.copyfileobj(response.raw, out_file)
                             print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
                         img_file_names.append(img_file_name)
