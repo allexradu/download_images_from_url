@@ -28,12 +28,14 @@ def sanitise_product_names(string):
     replace_percentage = replace_big.replace(r"%", ' ') if replace_big.find(r"%") != -1 else replace_big
     replace_pipes = replace_percentage.replace('|', ' ') if replace_percentage.find('|') != -1 else replace_percentage
     replace_check_marks = replace_pipes.replace('✅', ' ') if replace_pipes.find('✅') != -1 else replace_pipes
-    replace_double_quotes = replace_check_marks.replace('"', ' ') if replace_check_marks.find(
+    replace_double_quotes = replace_check_marks.replace('"', '') if replace_check_marks.find(
         '"') != 1 else replace_check_marks
-    replace_colon = replace_double_quotes.replace(':', ' ') if replace_double_quotes.find(
+    replace_colon = replace_double_quotes.replace(':', '') if replace_double_quotes.find(
         ':') != -1 else replace_double_quotes
-    replace_question_mark = replace_colon.replace('?', ' ') if replace_colon.find('?') != -1 else replace_colon
-    return replace_question_mark
+    replace_question_mark = replace_colon.replace('?', '') if replace_colon.find('?') != -1 else replace_colon
+    replace_back_slash = replace_question_mark.replace('\\', '') if replace_question_mark.find(
+        '\\') != 1 else replace_check_marks
+    return replace_back_slash
 
 
 def write_file_image_to_excel(image_file_names, image_names_cell_letter):
