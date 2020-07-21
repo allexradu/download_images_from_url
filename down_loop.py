@@ -7,6 +7,7 @@ from socket import error as SocketError
 from urllib.request import Request, urlopen
 import requests
 import shutil
+import os
 
 read_urls_excel_cell_letters = ['C', 'D', 'E']
 read_product_name_cell_letter = 'B'
@@ -40,9 +41,12 @@ def download_images(img_file_names, image_multiplier):
                         system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else 'excel/photos/'
 
                         response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
+
+                        cwd = os.getcwd()
+
                         if img_file_name.find(' ') != -1:
                             file_name = system_prefix + img_file_name if platform.system() == 'Windows' \
-                                else system_prefix + img_file_name.replace(' ', r'_')
+                                else cwd + system_prefix + img_file_name.replace(' ', r'_')
                         else:
                             file_name = system_prefix + img_file_name
 
