@@ -3,6 +3,7 @@ import platform
 
 from openpyxl import load_workbook
 import extra_functions
+
 from openpyxl.utils.exceptions import IllegalCharacterError
 
 excel_product_image_url = []
@@ -22,7 +23,17 @@ def sanitise_product_names(string):
         '+') != -1 else replace_dollar_signs
     replace_dots = replace_plus_sign.replace('.', ' ') if replace_plus_sign.find('.') != -1 else replace_plus_sign
     replace_dashes = replace_dots.replace('-', ' ') if replace_dots.find('-') != -1 else replace_dots
-    return replace_dashes
+    replace_small = replace_dashes.replace('<', ' ') if replace_dashes.find('<') != -1 else replace_dashes
+    replace_big = replace_small.replace('>', ' ') if replace_small.find('>') != -1 else replace_small
+    replace_percentage = replace_big.replace(r"%", ' ') if replace_big.find(r"%") != -1 else replace_big
+    replace_pipes = replace_percentage.replace('|', ' ') if replace_percentage.find('|') != -1 else replace_percentage
+    replace_check_marks = replace_pipes.replace('✅', ' ') if replace_pipes.find('✅') != -1 else replace_pipes
+    replace_double_quotes = replace_check_marks.replace('"', ' ') if replace_check_marks.find(
+        '"') != 1 else replace_check_marks
+    replace_colon = replace_double_quotes.replace(':', ' ') if replace_double_quotes.find(
+        ':') != -1 else replace_double_quotes
+    replace_question_mark = replace_colon.replace('?', ' ') if replace_colon.find('?') != -1 else replace_colon
+    return replace_question_mark
 
 
 def write_file_image_to_excel(image_file_names, image_names_cell_letter):

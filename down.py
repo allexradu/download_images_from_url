@@ -8,9 +8,9 @@ from urllib.request import Request, urlopen
 import requests
 import shutil
 
-read_urls_excel_cell_letter = 'L'
-read_product_name_cell_letter = 'D'
-image_names_cell_letter = "M"
+read_urls_excel_cell_letter = 'AI'
+read_product_name_cell_letter = 'O'
+image_names_cell_letter = 'AJ'
 
 image_file_names = []
 
@@ -30,19 +30,27 @@ def download_images(img_file_names):
                         split_file_name = img_file_name_raw.split('.')
                         img_suffix_raw = split_file_name[-1]
                         img_suffix = img_suffix_raw[:3]
-                        img_file_name = excel.sanitise_product_names(excel.excel_product_names[i]) + '.' + img_suffix
 
-                        img_file_names.append(img_file_name)
+                        img_file_name = excel.sanitise_product_names(
+                            excel.excel_product_names[i]) + '' + '.' + img_suffix
+                        if len(img_file_name) > 100:
+                            img_file_name = img_file_name[0:100]
 
+                        # img_file_name = img_file_name_raw
                         system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else 'excel/photos/'
 
                         response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
                         with open(system_prefix + img_file_name, 'wb') as out_file:
                             shutil.copyfileobj(response.raw, out_file)
                             print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
-                    except FileNotFoundError or HTTPError or URLError or SocketError:
+                        img_file_names.append(img_file_name)
+                        # except FileNotFoundError:
+                    #     print('error file not found')
+                    #     img_file_names.append('n/a')
+                    except HTTPError or URLError or SocketError:
                         img_file_names.append('n/a')
                 else:
+                    print('error2')
                     img_file_names.append('n/a')
 
 
