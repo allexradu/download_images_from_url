@@ -8,9 +8,9 @@ from urllib.request import Request, urlopen
 import requests
 import shutil
 
-read_urls_excel_cell_letter = 'AM'
-read_product_name_cell_letter = 'O'
-image_names_cell_letter = 'AN'
+read_urls_excel_cell_letter = 'L'
+read_product_name_cell_letter = 'D'
+image_names_cell_letter = 'M'
 
 image_file_names = []
 
