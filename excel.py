@@ -17,7 +17,7 @@ table_location = 'excel\\a.xlsx' if platform.system() == 'Windows' else 'excel/a
 def sanitise_product_names(string_text):
     """ Replacing all the bad characters that inhibit search"""
     if string_text is not None:
-        replace_commas = string_text.replace(',', '') if string_text.find(',') != -1 else string
+        replace_commas = string_text.replace(',', '') if string_text.find(',') != -1 else string_text
         replace_stars = replace_commas.replace('*', ' ') if replace_commas.find('*') != -1 else replace_commas
         replace_slashes = replace_stars.replace(r'/', ' ') if replace_stars.find(r'/') != -1 else replace_stars
         replace_dollar_signs = replace_slashes.replace(' $', '') if replace_slashes.find(
