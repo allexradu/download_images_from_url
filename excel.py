@@ -11,7 +11,7 @@ from openpyxl.utils.exceptions import IllegalCharacterError
 excel_product_image_url = []
 excel_product_names = []
 work_sheet_index = 2
-table_location = 'excel\\a2.xlsx' if platform.system() == 'Windows' else 'excel/a2.xlsx'
+table_location = 'excel\\a3.xlsx' if platform.system() == 'Windows' else 'excel/a3.xlsx'
 
 
 def sanitise_product_names(string_text):
