@@ -1,4 +1,4 @@
-## Download Images FROM URLS using an Excel Spreadsheet (for e-Cpmmerce)
+## Download Images FROM URLS using an Excel Spreadsheet (for e-Commerce)
 
 So you want to import products from the feed of your supplier but you ran in to a problem because the supplier is using a protection agaist php spiders that are used in ecomerce platforms.
 
