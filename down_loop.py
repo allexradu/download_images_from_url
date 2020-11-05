@@ -9,9 +9,9 @@ import requests
 import shutil
 import os
 
-read_urls_excel_cell_letters = ['C', 'D', 'E']
-read_product_name_cell_letter = 'B'
-image_names_cell_letters = ['F', 'G', 'H']
+read_urls_excel_cell_letters = ['B', 'C', 'D', 'E', 'F', 'G', 'H']
+read_product_name_cell_letter = 'A'
+image_names_cell_letters = ['I', 'J', 'K', 'L', 'M', 'N', 'O']
 
 image_file_names = []
 

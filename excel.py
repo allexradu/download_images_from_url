@@ -11,11 +11,12 @@ from openpyxl.utils.exceptions import IllegalCharacterError
 excel_product_image_url = []
 excel_product_names = []
 work_sheet_index = 2
-table_location = 'excel\\a3.xlsx' if platform.system() == 'Windows' else 'excel/a3.xlsx'
+table_location = 'excel\\a.xlsx' if platform.system() == 'Windows' else 'excel/a.xlsx'
 
 
-def sanitise_product_names(string_text):
+def sanitise_product_names(string_t):
     """ Replacing all the bad characters that inhibit search"""
+    string_text = str(string_t)
     if string_text is not None:
         replace_commas = string_text.replace(',', '') if string_text.find(',') != -1 else string_text
         replace_stars = replace_commas.replace('*', ' ') if replace_commas.find('*') != -1 else replace_commas
@@ -39,7 +40,10 @@ def sanitise_product_names(string_text):
         replace_question_mark = replace_colon.replace('?', '') if replace_colon.find('?') != -1 else replace_colon
         replace_back_slash = replace_question_mark.replace('\\', '') if replace_question_mark.find(
             '\\') != 1 else replace_check_marks
-        return replace_back_slash
+        replace_sh = replace_back_slash.replace('Ș', 'S') if replace_back_slash.find('Ș') != 1 else replace_back_slash
+        replace_tz = replace_sh.replace('ț', 't') if replace_sh.find('ț') != 1 else replace_sh
+        replace_enter = replace_tz.replace('\n', ' ') if replace_tz.find('\n') != 1 else replace_tz
+        return replace_enter
     else:
         def get_random_string(length):
             letters = string.ascii_lowercase
