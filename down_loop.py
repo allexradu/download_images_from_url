@@ -9,9 +9,13 @@ import requests
 import shutil
 import os
 
-read_urls_excel_cell_letters = ['B', 'C', 'D', 'E', 'F', 'G', 'H']
-read_product_name_cell_letter = 'A'
-image_names_cell_letters = ['I', 'J', 'K', 'L', 'M', 'N', 'O']
+# read_urls_excel_cell_letters = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+# read_product_name_cell_letter = 'A'
+# image_names_cell_letters = ['N', 'O', 'P', 'Q', 'R', 'S', 'T']
+
+read_urls_excel_cell_letters = ['G', 'H']
+read_product_name_cell_letter = 'B'
+image_names_cell_letters = ['I', 'J']
 
 image_file_names = []
 
@@ -57,7 +61,7 @@ def download_images(img_file_names, image_multiplier):
                         # except FileNotFoundError:
                     #     print('error file not found')
                     #     img_file_names.append('n/a')
-                    except HTTPError or URLError or SocketError:
+                    except HTTPError or URLError or SocketError or ConnectionError:
                         img_file_names.append('n/a')
                 else:
                     print('error2')

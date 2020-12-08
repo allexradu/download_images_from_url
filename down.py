@@ -8,9 +8,9 @@ from urllib.request import Request, urlopen
 import requests
 import shutil
 
-read_urls_excel_cell_letter = 'I'
+read_urls_excel_cell_letter = 'Q'
 read_product_name_cell_letter = 'A'
-image_names_cell_letter = 'J'
+image_names_cell_letter = 'R'
 
 image_file_names = []
 
@@ -32,10 +32,10 @@ def download_images(img_file_names):
                         img_suffix = img_suffix_raw[:3]
 
                         img_file_name = excel.sanitise_product_names(
-                            excel.excel_product_names[i]) + '_1' + '.' + img_suffix
+                            excel.excel_product_names[i]) + '' + '.' + img_suffix
                         if len(img_file_name) > 100:
                             img_file_name = excel.sanitise_product_names(
-                                excel.excel_product_names[i][0:100]) + '_1' + '.' + img_suffix
+                                excel.excel_product_names[i][0:100]) + '' + '.' + img_suffix
 
                         # img_file_name = img_file_name_raw
                         system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else 'excel/photos/'
