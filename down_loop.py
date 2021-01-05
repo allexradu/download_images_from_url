@@ -43,7 +43,7 @@ def download_images(img_file_names, image_multiplier):
                                 excel.excel_product_names[i][0:100]) + image_multiplier + '.' + img_suffix
 
                         # img_file_name = img_file_name_raw
-                        system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else '/excel/photos/'
+                        system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else 'excel/photos/'
 
                         # response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
 
