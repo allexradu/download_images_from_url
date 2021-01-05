@@ -13,9 +13,9 @@ import os
 # read_product_name_cell_letter = 'A'
 # image_names_cell_letters = ['N', 'O', 'P', 'Q', 'R', 'S', 'T']
 
-read_urls_excel_cell_letters = ['B', 'C', 'D', 'E']
+read_urls_excel_cell_letters = ['B']
 read_product_name_cell_letter = 'A'
-image_names_cell_letters = ['F', 'G', 'H', 'I']
+image_names_cell_letters = ['C']
 
 image_file_names = []
 
@@ -34,7 +34,7 @@ def download_images(img_file_names, image_multiplier):
                         split_file_name = img_file_name_raw.split('.')
                         img_suffix_raw = split_file_name[-1]
                         # img_suffix = img_suffix_raw[:3]
-                        img_suffix = '.png'
+                        img_suffix = '.jpg'
 
                         img_file_name = excel.sanitise_product_names(
                             excel.excel_product_names[i]) + image_multiplier + '.' + img_suffix
