@@ -60,16 +60,23 @@ def download_images(img_file_names, image_multiplier):
 
                         cwd = os.path.abspath(os.curdir)
 
-                        if img_file_name.find(' ') != -1:
-                            file_name = system_prefix + img_file_name if platform.system() == 'Windows' \
-                                else cwd + system_prefix + img_file_name.replace(' ', r'_')
-                        else:
-                            file_name = system_prefix + img_file_name
+                        # if img_file_name.find(' ') != -1:
+                        #     file_name = system_prefix + img_file_name if platform.system() == 'Windows' \
+                        #         else cwd + system_prefix + img_file_name.replace(' ', r'_')
+                        # else:
+                        #     file_name = system_prefix + img_file_name
 
-                        with open(file_name, 'wb') as out_file:
+                        with open(system_prefix + excel.excel_product_names[i] + image_multiplier + img_suffix,
+                                  'wb') as out_file:
                             shutil.copyfileobj(response.raw, out_file)
                             print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
                         img_file_names.append(img_file_name)
+
+                        # with open(file_name, 'wb') as out_file:
+                        #     shutil.copyfileobj(response.raw, out_file)
+                        #     print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
+                        # img_file_names.append(img_file_name)
+
                         # except FileNotFoundError:
                     #     print('error file not found')
                     #     img_file_names.append('n/a')
