@@ -13,9 +13,9 @@ import os
 # read_product_name_cell_letter = 'A'
 # image_names_cell_letters = ['N', 'O', 'P', 'Q', 'R', 'S', 'T']
 
-read_urls_excel_cell_letters = ['G', 'H']
-read_product_name_cell_letter = 'B'
-image_names_cell_letters = ['I', 'J']
+read_urls_excel_cell_letters = ['B', 'C', 'D', 'E']
+read_product_name_cell_letter = 'A'
+image_names_cell_letters = ['F', 'G', 'H', 'I']
 
 image_file_names = []
 
@@ -33,7 +33,8 @@ def download_images(img_file_names, image_multiplier):
                         img_file_name_raw = split_url[-1]
                         split_file_name = img_file_name_raw.split('.')
                         img_suffix_raw = split_file_name[-1]
-                        img_suffix = img_suffix_raw[:3]
+                        # img_suffix = img_suffix_raw[:3]
+                        img_suffix = '.png'
 
                         img_file_name = excel.sanitise_product_names(
                             excel.excel_product_names[i]) + image_multiplier + '.' + img_suffix
@@ -44,7 +45,18 @@ def download_images(img_file_names, image_multiplier):
                         # img_file_name = img_file_name_raw
                         system_prefix = 'excel\\photos\\' if platform.system() == 'Windows' else '/excel/photos/'
 
-                        response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
+                        # response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
+
+                        after_slash = excel.excel_product_image_url[i].split('/')[-1]
+                        param1_key = after_slash[after_slash.find('?') + 1: after_slash.find('=')]
+                        param1_value = after_slash[after_slash.find('=') + 1: after_slash.find('&')]
+                        param2_key = after_slash[
+                                     after_slash.find('&') + 1: after_slash.find('=', after_slash.find('&'))]
+                        param2_value = after_slash[after_slash.find('=', after_slash.find('&')) + 1:]
+
+                        payload = {param1_key: param1_value, param2_key: param2_value}
+                        response = requests.get('https://download.schneider-electric.com/files', params = payload,
+                                                stream = True, verify = False)
 
                         cwd = os.path.abspath(os.curdir)
 
