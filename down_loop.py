@@ -5,7 +5,9 @@ from urllib.error import URLError
 from urllib.request import urlretrieve
 from socket import error as SocketError
 from urllib.request import Request, urlopen
+
 import requests
+from requests.exceptions import ConnectionError
 import shutil
 import os
 
