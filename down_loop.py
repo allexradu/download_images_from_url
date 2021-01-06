@@ -84,7 +84,7 @@ def download_images(img_file_names, image_multiplier):
                         # except FileNotFoundError:
                     #     print('error file not found')
                     #     img_file_names.append('n/a')
-                    except HTTPError or URLError or SocketError or ConnectionError:
+                    except (HTTPError, URLError, SocketError, ConnectionError) as e:
                         img_file_names.append('n/a')
                 else:
                     print('error2')
