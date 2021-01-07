@@ -1,5 +1,6 @@
 import excel
 import platform
+import urllib
 from urllib.error import HTTPError
 from urllib.error import URLError
 from urllib.request import urlretrieve
@@ -15,9 +16,9 @@ import os
 # read_product_name_cell_letter = 'A'
 # image_names_cell_letters = ['N', 'O', 'P', 'Q', 'R', 'S', 'T']
 
-read_urls_excel_cell_letters = ['B', 'C']
+read_urls_excel_cell_letters = ['B']
 read_product_name_cell_letter = 'A'
-image_names_cell_letters = ['D', 'E']
+image_names_cell_letters = ['C']
 
 image_file_names = []
 
@@ -49,18 +50,21 @@ def download_images(img_file_names, image_multiplier):
 
                         # response = requests.get(excel.excel_product_image_url[i], stream = True, verify = False)
 
-                        after_slash = excel.excel_product_image_url[i].split('/')[-1]
-                        param1_key = after_slash[after_slash.find('?') + 1: after_slash.find('=')]
-                        param1_value = after_slash[after_slash.find('=') + 1:]
+                        response = requests.get(excel.excel_product_image_url[i])
+                        # print(response)
+
+                        # after_slash = excel.excel_product_image_url[i].split('/')[-1]
+                        # param1_key = after_slash[after_slash.find('?') + 1: after_slash.find('=')]
+                        # param1_value = after_slash[after_slash.find('=') + 1:]
                         # param1_value = after_slash[after_slash.find('=') + 1: after_slash.find('&')]
                         # param2_key = after_slash[
                         #              after_slash.find('&') + 1: after_slash.find('=', after_slash.find('&'))]
                         # param2_value = after_slash[after_slash.find('=', after_slash.find('&')) + 1:]
                         # payload = {param1_key: param1_value, param2_key: param2_value}
 
-                        payload = {param1_key: param1_value}
-                        response = requests.get('https://download.schneider-electric.com/files', params = payload,
-                                                stream = True, verify = False)
+                        # payload = {param1_key: param1_value}
+                        # response = requests.get('https://download.schneider-electric.com/files', params = payload,
+                        #                         stream = True, verify = False)
 
                         cwd = os.path.abspath(os.curdir)
 
@@ -70,10 +74,12 @@ def download_images(img_file_names, image_multiplier):
                         # else:
                         #     file_name = system_prefix + img_file_name
 
-                        with open(system_prefix + excel.excel_product_names[i] + image_multiplier + img_suffix,
-                                  'wb') as out_file:
-                            shutil.copyfileobj(response.raw, out_file)
-                            print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
+                        # with open(system_prefix + excel.excel_product_names[i] + image_multiplier + img_suffix,
+                        #           'wb') as out_file:
+                        #     shutil.copyfileobj(response.raw, out_file)
+                        open(system_prefix + excel.excel_product_names[i] + image_multiplier + img_suffix, 'wb').write(
+                            response.content)
+                        print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
                         img_file_names.append(img_file_name)
 
                         # with open(file_name, 'wb') as out_file:
@@ -82,8 +88,8 @@ def download_images(img_file_names, image_multiplier):
                         # img_file_names.append(img_file_name)
 
                         # except FileNotFoundError:
-                    #     print('error file not found')
-                    #     img_file_names.append('n/a')
+                        #     print('error file not found')
+                        #     img_file_names.append('n/a')
                     except (HTTPError, URLError, SocketError, ConnectionError) as e:
                         img_file_names.append('n/a')
                 else:
