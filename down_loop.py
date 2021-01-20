@@ -22,6 +22,7 @@ image_names_cell_letters = ['C']
 
 image_file_names = []
 
+
 excel.read_product_names(read_product_name_cell_letter)
 
 
@@ -37,7 +38,7 @@ def download_images(img_file_names, image_multiplier):
                         split_file_name = img_file_name_raw.split('.')
                         img_suffix_raw = split_file_name[-1]
                         # img_suffix = img_suffix_raw[:3]
-                        img_suffix = '.jpg'
+                        img_suffix = 'pdf'
 
                         img_file_name = excel.sanitise_product_names(
                             excel.excel_product_names[i]) + image_multiplier + '.' + img_suffix
@@ -55,16 +56,20 @@ def download_images(img_file_names, image_multiplier):
 
                         after_slash = excel.excel_product_image_url[i].split('/')[-1]
                         param1_key = after_slash[after_slash.find('?') + 1: after_slash.find('=')]
-                        # param1_value = after_slash[after_slash.find('=') + 1:]
-                        param1_value = after_slash[after_slash.find('=') + 1: after_slash.find('&')]
-                        param2_key = after_slash[
-                                     after_slash.find('&') + 1: after_slash.find('=', after_slash.find('&'))]
-                        param2_value = after_slash[after_slash.find('=', after_slash.find('&')) + 1:]
-                        payload = {param1_key: param1_value, param2_key: param2_value}
+                        param1_value = after_slash[after_slash.find('=') + 1:]
+                        # param1_value = after_slash[after_slash.find('=') + 1: after_slash.find('&')]
+                        # param2_key = after_slash[
+                        #              after_slash.find('&') + 1: after_slash.find('=', after_slash.find('&'))]
+                        # param2_value = after_slash[after_slash.find('=', after_slash.find('&')) + 1:]
+                        # payload = {param1_key: param1_value, param2_key: param2_value}
 
-                        # payload = {param1_key: param1_value}
-                        response = requests.get('https://pl.eaton.com/image', params = payload,
-                                                stream = True, verify = False)
+                        payload = {param1_key: param1_value}
+                        headers = {
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0'}
+
+                        response = requests.get(
+                            'https://mall.industry.siemens.com/mall/en/ww/Catalog/DatasheetDownload', params = payload,
+                            stream = True, verify = False, headers = headers, timeout = 2, allow_redirects = True)
 
                         cwd = os.path.abspath(os.curdir)
 
@@ -74,18 +79,19 @@ def download_images(img_file_names, image_multiplier):
                         else:
                             file_name = system_prefix + img_file_name
 
-                        # # with open(system_prefix + excel.excel_product_names[i] + image_multiplier + img_suffix,
-                        # #           'wb') as out_file:
-                        # #     shutil.copyfileobj(response.raw, out_file)
+                        with open(system_prefix + excel.excel_product_names[i] + image_multiplier + '.' + img_suffix,
+                                  'wb') as out_file:
+                            shutil.copyfileobj(response.raw, out_file)
+
                         # open(system_prefix + excel.excel_product_names[i] + image_multiplier + img_suffix, 'wb').write(
                         #     response.content)
                         # print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
                         # img_file_names.append(img_file_name)
 
-                        with open(file_name, 'wb') as out_file:
-                            shutil.copyfileobj(response.raw, out_file)
-                            print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
-                        img_file_names.append(img_file_name)
+                        # with open(file_name, 'wb') as out_file:
+                        #     shutil.copyfileobj(response.raw, out_file)
+                        #     print('downloading image: ', excel.excel_product_image_url[i] + ' index:' + str(i))
+                        # img_file_names.append(img_file_name)
 
                         # except FileNotFoundError:
                         #     print('error file not found')
