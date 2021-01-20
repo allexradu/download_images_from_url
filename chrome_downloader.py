@@ -4,6 +4,8 @@ import requests
 from selenium import webdriver
 from distutils.spawn import find_executable
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 import excel
 import platform
 import excel
@@ -23,6 +25,8 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-setuid-sandbox")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("window-size=1400,2100")
+chrome_options.add_argument('--disable-dev-shm-usage')
 
 chromium = find_executable('chromium-browser')
 
@@ -36,7 +40,8 @@ path = os.path.join(os.getcwd(), 'excel', 'photos')
 prefs = {'download.default_directory': f'{path}'}
 chrome_options.add_experimental_option('prefs', prefs)
 
-driver = webdriver.Chrome(options = chrome_options)
+driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
+# driver = webdriver.Chrome(options = chrome_options)
 
 # url = 'https://mall.industry.siemens.com/mall/en/ww/Catalog/DatasheetDownload?downloadUrl=teddatasheet%2F%3Fformat%3DPDF%26caller%3DMall%26mlfbs%3D3NA3360%26language%3Den'
 
