@@ -43,7 +43,9 @@ chrome_options.add_experimental_option('prefs', prefs)
 driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
 # driver = webdriver.Chrome(options = chrome_options)
 
-# url = 'https://mall.industry.siemens.com/mall/en/ww/Catalog/DatasheetDownload?downloadUrl=teddatasheet%2F%3Fformat%3DPDF%26caller%3DMall%26mlfbs%3D3NA3360%26language%3Den'
+# url = 'https://www.assets.signify.com/is/content/PhilipsLighting/fp913703013809-pss-global'
+# driver.get(url)
+# time.sleep(2)
 
 for i in range(1, len(excel.excel_product_image_url)):
     print(f' row {i} / {len(excel.excel_product_image_url)}')
