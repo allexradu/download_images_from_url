@@ -50,4 +50,3 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_opti
 for i in range(1, len(excel.excel_product_image_url)):
     print(f' row {i} / {len(excel.excel_product_image_url)}')
     driver.get(excel.excel_product_image_url[i])
-    time.sleep(2)
